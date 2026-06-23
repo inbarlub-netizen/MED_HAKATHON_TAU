@@ -1,0 +1,18 @@
+node_modules
+dist
+dist-ssr
+*.local
+*.log
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+*.tsbuildinfo
+
+# Local Netlify folder
+.netlify
+
+cloudflared.exe
+tunnel.log
+serve.log
+preview.log
+build2.log

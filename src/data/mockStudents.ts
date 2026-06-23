@@ -1,0 +1,70 @@
+import type { StudentProfile } from '@/types'
+
+export const maya: StudentProfile = {
+  id: 'maya-cohen',
+  name: 'Maya Cohen',
+  year: '4th year medical student',
+  rotation: 'Internal Medicine',
+  cohort: 'TAU Med 2026',
+  avatarInitials: 'MC',
+  casesCompleted: 18,
+  avgOsce: 74,
+  osceTrend: [
+    { label: 'Wk 1', score: 61 },
+    { label: 'Wk 2', score: 64 },
+    { label: 'Wk 3', score: 69 },
+    { label: 'Wk 4', score: 72 },
+    { label: 'Wk 5', score: 71 },
+    { label: 'Wk 6', score: 78 },
+  ],
+  competencies: [
+    { skill: 'History', value: 82 },
+    { skill: 'Red flags', value: 76 },
+    { skill: 'Empathy', value: 80 },
+    { skill: 'Hidden concerns', value: 48 },
+    { skill: 'Med adherence', value: 44 },
+    { skill: 'Tests', value: 71 },
+    { skill: 'Differential', value: 73 },
+    { skill: 'Management', value: 68 },
+  ],
+  weakSkills: ['Medication adherence', 'Hidden concerns', 'Nonjudgmental social history', 'Structured delivery before sensitive questions'],
+  strongSkills: ['Open-ended history', 'Empathy', 'Red-flag screening'],
+  hiddenConcernRate: 52,
+  empathyScore: 80,
+  trustTrend: [
+    { label: 'Wk 1', value: 62 },
+    { label: 'Wk 2', value: 64 },
+    { label: 'Wk 3', value: 67 },
+    { label: 'Wk 4', value: 70 },
+    { label: 'Wk 5', value: 69 },
+    { label: 'Wk 6', value: 74 },
+  ],
+  presenceTrend: [
+    { label: 'Wk 1', value: 58 },
+    { label: 'Wk 2', value: 60 },
+    { label: 'Wk 3', value: 66 },
+    { label: 'Wk 4', value: 68 },
+    { label: 'Wk 5', value: 70 },
+    { label: 'Wk 6', value: 73 },
+  ],
+  redFlagScore: 76,
+  testEfficiency: 69,
+  recommendedCaseId: 'elderly-dizziness-adherence',
+  detectedWeakness: [
+    'Medication adherence',
+    'Hidden concerns',
+    'Nonjudgmental social history',
+    'Structured delivery before sensitive questions',
+  ],
+  replayLibrary: [
+    { id: 'r1', caseTitle: 'Headache - Hidden Stress', date: 'Jun 02', score: 78 },
+    { id: 'r2', caseTitle: 'Fatigue - Thyroid vs Depression', date: 'May 28', score: 71 },
+    { id: 'r3', caseTitle: 'Palpitations - Caffeine & Anxiety', date: 'May 21', score: 69 },
+  ],
+  feedbackHistory: [
+    { instructor: 'Dr. Dana Levi', date: 'Jun 03', note: 'Excellent rapport. Work on transitioning into sensitive questions more deliberately.' },
+    { instructor: 'Dr. Amir Cohen', date: 'May 29', note: 'Strong differential. Tends to over-order labs before clarifying the story.' },
+  ],
+}
+
+export const students: StudentProfile[] = [maya]

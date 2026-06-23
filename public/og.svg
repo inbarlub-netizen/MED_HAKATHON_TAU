@@ -1,0 +1,27 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#07111F"/>
+      <stop offset="1" stop-color="#0B1220"/>
+    </linearGradient>
+    <linearGradient id="cf" x1="80" y1="430" x2="320" y2="190" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22d3ee"/>
+      <stop offset="0.5" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.2" cy="0.1" r="0.9">
+      <stop stop-color="#22d3ee" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <g transform="translate(110 150)">
+    <path d="M100 0 L196 170 H4 Z" stroke="url(#cf)" stroke-width="9" stroke-linejoin="round" fill="none"/>
+    <path d="M38 118 H72 l13 -40 19 78 14 -52 11 26 H160" stroke="url(#cf)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  <text x="350" y="270" font-family="Inter, Arial, sans-serif" font-size="74" font-weight="800" fill="#F1F5F9">ClinFlight OS</text>
+  <text x="352" y="330" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="600" fill="#7DD3FC">Clinical Teaching Operating System</text>
+  <text x="352" y="392" font-family="Inter, Arial, sans-serif" font-size="26" fill="#94A3B8">Turn every clinical encounter into a measurable learning opportunity.</text>
+  <text x="110" y="560" font-family="Inter, Arial, sans-serif" font-size="22" fill="#64748B">Voice-first AI patient encounters · Hidden concern discovery · OSCE replay · Faculty analytics</text>
+</svg>
