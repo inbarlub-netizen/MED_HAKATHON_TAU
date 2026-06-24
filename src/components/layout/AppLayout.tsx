@@ -21,7 +21,6 @@ const nav = [
   { to: '/', label: 'Home', icon: LayoutDashboard, end: true },
   { to: '/flight-deck', label: 'Student Flight Deck', icon: Plane },
   { to: '/cockpit', label: 'Clinical Cockpit', icon: Stethoscope },
-  { to: '/live-patient', label: 'Live Patient Room', icon: HeartPulse, tag: 'New' },
   { to: '/debrief', label: 'OSCE Debrief / Replay', icon: Clapperboard },
   { to: '/progress', label: 'My Progress', icon: LineChart },
   { to: '/faculty', label: 'Faculty Command', icon: Building2 },

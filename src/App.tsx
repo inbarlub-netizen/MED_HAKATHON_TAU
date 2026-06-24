@@ -5,7 +5,6 @@ import AppLayout from './components/layout/AppLayout'
 const Landing = lazy(() => import('./pages/Landing'))
 const FlightDeck = lazy(() => import('./pages/FlightDeck'))
 const Cockpit = lazy(() => import('./pages/Cockpit'))
-const LivePatientRoom = lazy(() => import('./features/live-patient/LivePatientRoom'))
 const Debrief = lazy(() => import('./pages/Debrief'))
 const Progress = lazy(() => import('./pages/Progress'))
 const Faculty = lazy(() => import('./pages/Faculty'))
@@ -43,7 +42,6 @@ export default function App() {
         <Routes>
           <Route path="/flight-deck" element={<FlightDeck />} />
           <Route path="/cockpit" element={<Cockpit />} />
-          <Route path="/live-patient" element={<LivePatientRoom />} />
           <Route path="/debrief" element={<Debrief />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="/faculty" element={<Faculty />} />
