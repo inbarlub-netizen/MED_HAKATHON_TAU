@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import { Activity, Heart, Wind, Droplet } from 'lucide-react'
-import PatientVisual from './PatientVisual'
 import PhotoLipSyncAvatar from './PhotoLipSyncAvatar'
 import { HiddenConcernChip } from '@/components/common/Scores'
 import { liveCase } from '../state/livePatientStore'
@@ -48,10 +47,29 @@ export default function PatientStage({
         <HiddenConcernChip state={hiddenState} />
       </div>
 
-      {/* Patient visual fills the stage */}
+      {/* Patient photo with live lip-sync */}
       <div className="relative flex-1">
-        <PatientVisual emotion={emotion} phase={phase} />
         <PhotoLipSyncAvatar />
+
+        {/* Vignette + bottom fade so the vitals strip blends in */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-1/3 bg-gradient-to-t from-ink-900 via-ink-900/50 to-transparent" />
+
+        {/* Speaking cyan glow */}
+        <div
+          className={cn(
+            'pointer-events-none absolute inset-0 z-[3] transition-opacity duration-500',
+            phase === 'patient-speaking' ? 'opacity-100' : 'opacity-0',
+          )}
+          style={{ boxShadow: 'inset 0 0 100px rgba(34,211,238,0.22)' }}
+        />
+
+        {/* Listening violet pulse */}
+        {phase === 'listening' && (
+          <div
+            className="pointer-events-none absolute inset-0 z-[3] animate-pulse"
+            style={{ boxShadow: 'inset 0 0 80px rgba(167,139,250,0.16)' }}
+          />
+        )}
       </div>
 
       {/* Bottom identity + vitals strip */}

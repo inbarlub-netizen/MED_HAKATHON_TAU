@@ -3,9 +3,10 @@ import { registerTalkingHead, unregisterTalkingHead } from '../engine/talkingHea
 
 const PHOTO_URL = `${import.meta.env.BASE_URL}images/live-patient/david.png`
 
-// Mouth position calibrated for david.png (lying in ER bed, head on left side of frame)
-// cx/cy are fractions of image width/height; angle in degrees
-const MOUTH = { cx: 0.109, cy: 0.633, w: 44, h: 12, maxOpen: 15, angle: 5 }
+// Mouth position in the photo, as fractions of the raw image size.
+// cx/cy = center of mouth, w/maxOpen = size in raw image pixels, angle in degrees.
+// The person is lying on their left (from our view) in the lower-left of the photo.
+const MOUTH = { cx: 0.109, cy: 0.628, w: 48, maxOpen: 16, angle: 3 }
 
 export default function PhotoLipSyncAvatar() {
   const canvasRef   = useRef<HTMLCanvasElement>(null)
@@ -20,20 +21,20 @@ export default function PhotoLipSyncAvatar() {
   const resolveRef  = useRef<(() => void) | null>(null)
   const [ready, setReady] = useState(false)
 
-  // Load photo and start draw loop
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
+    let cancelled = false
 
     const img = new Image()
     img.src = PHOTO_URL
     imgRef.current = img
-    let cancelled = false
 
     img.onload = () => {
       if (cancelled) return
-      canvas.width  = img.naturalWidth
-      canvas.height = img.naturalHeight
+      // Fixed internal resolution (16:9). Image drawn with cover-scale math below.
+      canvas.width  = 1600
+      canvas.height = 900
       setReady(true)
 
       const ctx = canvas.getContext('2d')!
@@ -50,7 +51,6 @@ export default function PhotoLipSyncAvatar() {
           targetRef.current = 0
         }
         openRef.current += (targetRef.current - openRef.current) * 0.38
-
         drawFrame(ctx, canvas!, img, openRef.current)
         rafRef.current = requestAnimationFrame(loop)
       }
@@ -64,7 +64,6 @@ export default function PhotoLipSyncAvatar() {
     }
   }, [])
 
-  // Register speak/stop with the bridge
   useEffect(() => {
     const speakFn = async (_text: string, audioUrl: string | null): Promise<void> => {
       if (!audioUrl) return
@@ -129,8 +128,8 @@ export default function PhotoLipSyncAvatar() {
       )}
       <canvas
         ref={canvasRef}
-        className="h-full w-full"
-        style={{ objectFit: 'cover', opacity: ready ? 1 : 0 }}
+        className="absolute inset-0 h-full w-full"
+        style={{ opacity: ready ? 1 : 0 }}
       />
     </div>
   )
@@ -142,21 +141,32 @@ function drawFrame(
   img: HTMLImageElement,
   open: number,
 ) {
-  ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+  const cW = canvas.width   // 1600
+  const cH = canvas.height  // 900
+  const iW = img.naturalWidth
+  const iH = img.naturalHeight
+
+  // Draw image with "cover + left-aligned" so the person stays visible
+  const scale = Math.max(cW / iW, cH / iH)
+  const dW = iW * scale
+  const dH = iH * scale
+  const dX = 0                 // left-align (person is on left side of photo)
+  const dY = (cH - dH) / 2    // vertically center
+
+  ctx.drawImage(img, dX, dY, dW, dH)
   if (open <= 0.015) return
 
-  const { cx: cxF, cy: cyF, w, h: _h, maxOpen, angle } = MOUTH
-  const cx  = cxF * canvas.width
-  const cy  = cyF * canvas.height
-  const ang = angle * (Math.PI / 180)
-  const rx  = w * 0.46
-  const ry  = Math.max(0.5, open * maxOpen)
+  // Mouth position recalculated in canvas-draw space
+  const mCX     = MOUTH.cx * iW * scale + dX
+  const mCY     = MOUTH.cy * iH * scale + dY
+  const rx      = MOUTH.w * scale * 0.46
+  const ry      = Math.max(0.5, open * MOUTH.maxOpen * scale)
+  const ang     = MOUTH.angle * (Math.PI / 180)
 
   ctx.save()
-  ctx.translate(cx, cy)
+  ctx.translate(mCX, mCY)
   ctx.rotate(ang)
 
-  // Dark interior with feathered edge
   const reach = Math.max(rx, ry)
   const g = ctx.createRadialGradient(0, 0, 0, 0, 0, reach)
   g.addColorStop(0.0, 'rgba(30,6,6,0.97)')
@@ -167,7 +177,6 @@ function drawFrame(
   ctx.fillStyle = g
   ctx.fill()
 
-  // Lower-lip highlight
   ctx.beginPath()
   ctx.ellipse(0, ry * 0.88, rx * 0.9, Math.max(1, ry * 0.48), 0, 0, Math.PI * 2)
   const lip = ctx.createLinearGradient(0, ry * 0.38, 0, ry * 1.38)
