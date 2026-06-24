@@ -27,6 +27,7 @@ const APP_ICON = '/images/clinflight/logo/clinflight_app_icon.png'
 const NAV = [
   { label: 'Overview', href: '#overview' },
   { label: 'Live Demo', href: '#demo' },
+  { label: 'Live Patient Room', to: '/live-patient' },
   { label: 'Clinical Cockpit', to: '/cockpit' },
   { label: 'Replay', href: '#replay' },
   { label: 'Faculty', href: '#faculty' },
@@ -128,11 +129,11 @@ function Hero() {
               instructors focus their time where it matters most.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link to="/flight-deck" className="btn-primary text-base">
-                <PlayCircle size={18} /> Run the 90-Second Demo
+              <Link to="/live-patient" className="btn-primary text-base">
+                <Activity size={18} /> Try Live Patient Room
               </Link>
-              <Link to="/faculty" className="btn-ghost text-base">
-                <Building2 size={18} /> View Faculty Dashboard
+              <Link to="/flight-deck" className="btn-ghost text-base">
+                <PlayCircle size={18} /> 90-Second Demo
               </Link>
             </div>
             <p className="mt-6 flex items-center gap-2 text-sm text-slate-500">
@@ -231,8 +232,11 @@ function DemoSection() {
               </div>
             </motion.div>
 
-            <Link to="/cockpit" className="btn-violet w-full text-base">
-              <Mic size={18} /> Open Clinical Cockpit Demo
+            <Link to="/live-patient" className="btn-primary w-full text-base">
+              <Activity size={18} /> Launch Live Patient Room
+            </Link>
+            <Link to="/cockpit" className="btn-ghost w-full text-sm text-slate-400">
+              <Mic size={16} /> Classic Clinical Cockpit
             </Link>
           </div>
         </div>

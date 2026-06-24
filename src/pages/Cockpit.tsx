@@ -609,6 +609,13 @@ function TopBar() {
         <span className="chip !border-amber-400/25 !bg-amber-400/[0.07] !text-amber-200">
           <Sparkles size={12} /> Education only
         </span>
+        <Link
+          to="/live-patient"
+          className="btn btn-violet !py-2 text-xs"
+          title="Open the new immersive Live Patient Room"
+        >
+          <Activity size={14} /> Launch Live Patient Room <ArrowRight size={14} />
+        </Link>
       </div>
       </div>
       <div className="mt-3 flex items-start gap-2 rounded-xl border border-cyan-400/15 bg-cyan-400/[0.04] px-3 py-2 text-xs text-slate-300">
