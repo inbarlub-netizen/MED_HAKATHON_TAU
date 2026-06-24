@@ -15,7 +15,7 @@ export default function PhotoLipSyncAvatar() {
   const rafRef      = useRef<number>(0)
   const actxRef     = useRef<AudioContext | null>(null)
   const analyserRef = useRef<AnalyserNode | null>(null)
-  const freqDataRef = useRef<Uint8Array | null>(null)
+  const freqDataRef = useRef<Uint8Array<ArrayBuffer> | null>(null)
   const sourceRef   = useRef<AudioBufferSourceNode | null>(null)
   const resolveRef  = useRef<(() => void) | null>(null)
   const [ready, setReady] = useState(false)
@@ -51,7 +51,7 @@ export default function PhotoLipSyncAvatar() {
         }
         openRef.current += (targetRef.current - openRef.current) * 0.38
 
-        drawFrame(ctx, canvas, img, openRef.current)
+        drawFrame(ctx, canvas!, img, openRef.current)
         rafRef.current = requestAnimationFrame(loop)
       }
 
@@ -75,7 +75,7 @@ export default function PhotoLipSyncAvatar() {
         analyser.fftSize = 256
         analyser.smoothingTimeConstant = 0.5
         analyserRef.current = analyser
-        freqDataRef.current = new Uint8Array(analyser.frequencyBinCount)
+        freqDataRef.current = new Uint8Array(analyser.frequencyBinCount) as Uint8Array<ArrayBuffer>
         analyser.connect(actx.destination)
         actxRef.current = actx
       }
